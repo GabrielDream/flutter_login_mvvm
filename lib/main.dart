@@ -9,11 +9,11 @@ void main() {
 }
 
 // Application configuration.
-class MyApp extends StatelessWidget {
+class MyApp extends StatelessWidget { //MyApp doesn't manage its own mutable state. 
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) { //Its build() method describes the applitcation's config and initial widget tree. 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Login MVVM',

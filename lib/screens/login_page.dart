@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -9,6 +8,18 @@ import 'reset_password_page.dart';
 // Login View: displays the interface.
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
+
+  // Handles navigation to the password reset screen.
+  void _openResetPassword(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute<void> (
+        builder: (_) => ChangeNotifierProvider(
+          create: (_) => ResetPasswordViewModel(),
+          child: const ResetPasswordPage(),
+        )
+      )
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +34,7 @@ class LoginPage extends StatelessWidget {
       body: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(24),
-          child: ConstrainedBox(
+          child: ConstrainedBox( //Flutter widget that limits a child's size. 
             constraints: const BoxConstraints(maxWidth: 360),
 
             child: Column(
@@ -37,7 +48,7 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
 
-                const SizedBox(height: 24),
+                const SizedBox(height: 24), //Add space between the text and the next widget.
 
                 // Email input.
                 TextField(
@@ -63,26 +74,31 @@ class LoginPage extends StatelessWidget {
 
                 const SizedBox(height: 24),
 
-                // Calls the ViewModel's login command.
-                ElevatedButton(
+
+                //Calls the ViewModel's login command 
+                ElevatedButton (
                   onPressed: viewModel.login,
-                  child: const Text('Login'),
+                  child: const Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.login),
+                      SizedBox(width: 8),
+                      Text('Login'),
+                    ]
+                  )
                 ),
+
+                // Calls the ViewModel's login command.
+//                  ElevatedButton(
+//                  onPressed: viewModel.login,
+//                  child: const Icon (Icons.login),                  
+//                ),
 
                 const SizedBox(height: 8),
 
                 // Opens the password reset screen.
                 TextButton(
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute<void>(
-                        builder: (_) => ChangeNotifierProvider(
-                          create: (_) => ResetPasswordViewModel(),
-                          child: const ResetPasswordPage(),
-                        ),
-                      ),
-                    );
-                  },
+                  onPressed: () => _openResetPassword(context),
                   child: const Text('Forgot your password?'),
                 ),
 
@@ -112,7 +128,14 @@ class LoginPage extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+
+                  const SizedBox(height: 16,),      
                 ],
+
+                TextButton(
+                    onPressed: viewModel.register,
+                    child: const Text('Register'),
+                  ),
               ],
             ),
           ),

@@ -6,12 +6,26 @@ class LoginViewModel extends ChangeNotifier {
   String _message = '';
   bool _isSuccess = false;
 
+  bool _registerPressed = false;
+
   String get message => _message;
   bool get isSuccess => _isSuccess;
 
   void updateEmail(String value) {
     _email = value;
     _clearMessage();
+  }
+
+  void register () {
+    _isSuccess = !_isSuccess; 
+
+    if(_isSuccess) {
+      _message = 'Demo: Register successful';
+    } else {
+      _message = 'Register button already pressed!';
+    }
+
+    notifyListeners();
   }
 
   void updatePassword(String value) {

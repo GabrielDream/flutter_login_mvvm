@@ -6,7 +6,7 @@ class LoginViewModel extends ChangeNotifier {
   String _message = '';
   bool _isSuccess = false;
 
-  bool _registerPressed = false;
+  //bool _registerPressed = false;
 
   String get message => _message;
   bool get isSuccess => _isSuccess;

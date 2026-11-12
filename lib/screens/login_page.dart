@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_login_mvvm/viewmodels/user_viewmodel.dart';
+import 'package:provider/provider.dart'; //
 
 import '../viewmodels/login_viewmodel.dart';
 import '../viewmodels/reset_password_viewmodel.dart';
 import 'reset_password_page.dart';
+import 'package:flutter_login_mvvm/screens/users_page.dart'; 
+
+import '../viewmodels/user_viewmodel.dart';
 
 // Login View: displays the interface.
 class LoginPage extends StatelessWidget {
@@ -101,6 +105,25 @@ class LoginPage extends StatelessWidget {
                   onPressed: () => _openResetPassword(context),
                   child: const Text('Forgot your password?'),
                 ),
+
+
+                const SizedBox(height: 8,), 
+
+                //Show users at screen:
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute<void>(
+                        builder: (_) => ChangeNotifierProvider(
+                          create: (_) => UsersViewModel()..fetchUsers(),
+                          child: const UserPage(),
+                        ),
+                      ),
+                    );
+                  },
+                  child: const Text ('Check registered Users'),
+                ),
+
 
                 // Displays feedback from the ViewModel.
                 if (viewModel.message.isNotEmpty) ...[
